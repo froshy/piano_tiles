@@ -1,4 +1,4 @@
-from src.components import *
+from src.ScreenGrabber import *
 import logging
 import pytest
 
