@@ -1,6 +1,10 @@
-from ScreenGrabber import *
-from ScreenShot import *
+from src.ScreenGrabber import *
+from src.util import *
+import time
 
+"""
+Drives the application. Only works on primary monitor
+"""
 def driver():
     sct_height = 100
     sct_width = 595
@@ -16,7 +20,18 @@ def driver():
         'height': sct_height,
         'width': sct_width
     }
-    grabber = ScreenGrabber(mon=2, output='dump.png', dim=dim)
-    grabber.screenshot()
+    grabber = ScreenGrabber(mon=2, dim_dict=dim)
+
+    while True:
+        sct = grabber.screenshot()
+        check, x, y = sct.is_line_black(50)
+        if check:
+            move_and_click(x, y, grabber.config)
+            print('clicked')
+
+
+driver()
+
+
 
 

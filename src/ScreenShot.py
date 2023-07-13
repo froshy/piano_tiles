@@ -35,4 +35,18 @@ class ScreenShot:
                 counter += 1
             mss.tools.to_png(self.sc.rgb, self.sc.size, output=new_fname)
 
+    def is_black(self, x, y):
+        r, g, b = self.pixel(x, y)
+        if r < 10 and g < 10 and b < 10:
+            return True
+        return False
 
+    def is_line_black(self, y):
+        count = 0
+        for x in range(self.sc.width):
+            if self.is_black(x, y):
+                count += 1
+            if count >= 100:
+                return True, x, y
+
+        return False, None, None
